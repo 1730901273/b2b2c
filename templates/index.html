@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在线记账本</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- jquery-confirm 的样式 -->
+    <link rel="stylesheet" href="css/jquery-confirm.3.3.min.css">
+
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="css/index.css">*
+
+    <!-- jQuery -->
+    <script type="text/javascript"  src="js/jquery-1.11.1.min.js"></script>
+
+    <!-- jQuery Confirm, jQuery插件, 用于弹出消息框 -->
+    <script type="text/javascript"  src="js/jquery-confirm.3.3.min.js"></script>
+    <script type="text/javascript"  src="js/jquery-confirm-bailey.js"></script>
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    <!-- Moment, 处理时间/日期的第三方库 -->
+    <script type="text/javascript" src="js/moment.2.24.0.js"></script>
+    <script type="text/javascript" src="js/moment.locale.2.24.0.js"></script>
+
+    <!-- 本页面自定义 javascript 代码 -->
+    <script type="text/javascript" src="js/index.js"></script>
+
+</head>
+<body>
+    <div id="container">
+        <div id="records" class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon glyphicon glyphicon-list"></i>记账本</h3>
+                <a id="btn-add-bill" title="打开/关闭记账面板"><i class="icon glyphicon glyphicon-menu-right"></i></a>
+            </div>
+            <div class="panel-body">
+                <div class="search bar7" >
+                    <form>
+                        <input id ="input_search" type="text" placeholder="请输入您要搜索的内容..." oninput="search(event)" />
+                    </form>
+                </div>
+                <ul id="bill-items">
+                    <li class="record">
+                        <div class="date-time">
+                            <h2 class="date" data-field="date">05/13</h2>
+                            <p class="time" data-field="time">12:49:36</p>
+                        </div>
+                        <div class="content">
+                            <h4 class="media-heading io in" data-field="amount">+ 800.00</h4>
+                            <p class="memo" data-field="memo">老爸发生活费啦</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <img id="progress" src="img/spinner.gif">
+                <h4 id="balance" style="color: green;">
+                    结余: <span>+ 800</span>
+                </h4>
+            </div>
+        </div>
+
+        <div id="panel-bill-editor" class="panel panel-info" style="display: none;">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon glyphicon glyphicon-pencil"></i>账单</h3>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <label>金额</label>
+                    <input id="nb-amount" type="number" max="100000" class="form-control" placeholder="收入/支出金额">
+                </div>
+                <div class="input-group">
+                    <label>备注</label>
+                    <input id="nb-memo" type="text" maxlength="50" class="form-control">
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button id="btn-confirm-add" class="btn btn-sm btn-info"><i class="icon glyphicon glyphicon-floppy-save"></i>记一笔</button>
+            </div>
+        </div>
+    </div>
+    <!-- 自定义弹框 -->
+      <div class="mask"></div>
+      <div class="window" id="center">
+        <div class="border_add_nav">
+          <div> </div>
+        </div>
+        <div class="border_add_main_content">
+            <div class="border_add_main_content_box">
+                <div class="panel-heading">
+                <h3 class="panel-title"><i class="icon glyphicon glyphicon-pencil"></i>账单</h3>
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <label>金额</label>
+                    <input id="b-amount" type="number" max="100000" class="form-control" placeholder="收入/支出金额">
+                </div>
+                <div class="input-group">
+                    <label>备注</label>
+                    <input id="b-memo" type="text" maxlength="50" class="form-control">
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="border_add_btn_box">
+          <div class="pull-right" style="float:right;">
+            <div class="cancel">取消</div>
+            <div id= "change" class="save">修改</div>
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>
