@@ -1,4 +1,6 @@
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.utils import json
 # 生成JWT taken固定格式
@@ -13,8 +15,8 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 # 加入模本
-# def index(request):
-#     return render(request, 'index.html')
+def index(request):
+    return render(request, 'index.html')
 
 
 # 创建记事本API
@@ -68,29 +70,39 @@ def getBills(request):
             response["Access-Control-Allow-Headers"] = "*"
             return response
         # 实现模糊匹配的API
+        # 实现模糊匹配的Ｑ和filter联合使用
         elif action == 'search':
-            # 修改账本信息.
-            value = []
-            d = bill.objects.filter(memo__contains=data)
-            serializer = getBill(d, many=True)
-            value += serializer.data
-            d = bill.objects.filter(amount__contains=data)
-            serializer = getBill(d, many=True)
-            value += serializer.data
-            d = bill.objects.filter(time__contains=data)
-            serializer = getBill(d, many=True)
-            value += serializer.data
-            # 去重
-            new_value = []
-            for data in value:
-                if data not in new_value:
-                    new_value.append(data)
-            response = HttpResponse(json.dumps({"data": new_value}))
+            d = bill.objects.filter(Q(memo =data)|Q(amont = data)|Q(time = data))
+            value = getBill(d,many = True)
+            response = HttpResponse(json.dumps({"data": value.data}))
             response["Access-Control-Allow-Origin"] = "*"
             response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
             response["Access-Control-Max-Age"] = "1000"
             response["Access-Control-Allow-Headers"] = "*"
             return response
+        # elif action == 'search':
+        #     # 修改账本信息.
+        #     value = []
+        #     d = bill.objects.filter(memo__contains=data)
+        #     serializer = getBill(d, many=True)
+        #     value += serializer.data
+        #     d = bill.objects.filter(amount__contains=data)
+        #     serializer = getBill(d, many=True)
+        #     value += serializer.data
+        #     d = bill.objects.filter(time__contains=data)
+        #     serializer = getBill(d, many=True)
+        #     value += serializer.data
+        #     # 去重
+        #     new_value = []
+        #     for data in value:
+        #         if data not in new_value:
+        #             new_value.append(data)
+        #     response = HttpResponse(json.dumps({"data": new_value}))
+        #     response["Access-Control-Allow-Origin"] = "*"
+        #     response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        #     response["Access-Control-Max-Age"] = "1000"
+        #     response["Access-Control-Allow-Headers"] = "*"
+        #     return response
         else:
             return JsonResponse(data=None, status=404)
 

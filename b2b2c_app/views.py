@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from ratelimit.decorators import ratelimit
+import ratelimit
 from rest_framework.parsers import JSONParser
 from rest_framework.utils import json
 from b2b2c_app.models import TbProduct, TbBuyer, bill
@@ -84,7 +84,7 @@ def tb_product(request):
 
 # 创建登录信息的API
 @csrf_exempt
-@ratelimit(key='ip', rate='5/30s', block=True)
+# @ratelimit(key='ip', rate='5/30s', block=True)
 def buyer_login(request):
     dic = {}
     if request.method == 'POST':  # 当提交表单时

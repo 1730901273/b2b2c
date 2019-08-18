@@ -101,8 +101,14 @@ DATABASES = {
         'NAME': 'db_52',
         'USER': 'root',
         'PASSWORD': 'root123456',
-        'HOST': '127.0.0.1',
-        'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB'},
+        'HOST':'10.12.4.242',
+        # 'HOST': '127.0.0.1',
+        'PORT': '3306',
+        # 避免映射数据库时出现警告
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+        },
     }
 }
 
@@ -141,3 +147,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # 静态文件的配置目录
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]

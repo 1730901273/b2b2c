@@ -30,12 +30,12 @@ urlpatterns = [
     # # 添加一个删除，增加，更新API
     # path('userfav_detail/', userfav_detail),
     # # 添加一个API接口，实现商品数据的交互
-    path('tb_product/', tb_product),
+    # path('tb_product/', tb_product),
     # 添加一个API接口，实在登录界面密码和用户名的认证
-    path('buyer_login/', buyer_login),
+    # path('buyer_login/', buyer_login),
     # 添加一个记事本的API
     # path('getBills/', getBills),
     # 添加app的url
     url(r'^', include('Bills.urls')),
-    url(r'^', include('BLOG.urls')),
+    # url(r'^', include('BLOG.urls')),
 ]
